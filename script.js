@@ -210,6 +210,8 @@ document.querySelectorAll('.hero-catalogue').forEach(catalogue => {
       const rawPosition = (index - rotation + items.length) % items.length;
       const position = rawPosition > items.length / 2 ? rawPosition - items.length : rawPosition;
       item.classList.toggle('is-front', position === 0);
+      item.classList.toggle('is-prev', position === -1);
+      item.classList.toggle('is-next', position === 1);
       item.style.zIndex = String(100 - Math.abs(position));
     });
     if (counter) counter.textContent = `${String(rotation + 1).padStart(2, '0')} — ${String(items.length).padStart(2, '0')}`;

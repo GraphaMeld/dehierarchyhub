@@ -1138,13 +1138,24 @@ h1 { color: var(--paper); font-size: clamp(3.8rem, 10vw, 8.4rem); letter-spacing
   left: 50%;
   width: min(100%, 238px);
   margin: 0;
-  transform: translateX(-50%);
+  transform: translateX(-50%) scale(0.84);
   opacity: 0;
   pointer-events: none;
-  transition: opacity 0.45s ease;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease;
 }
 .hero-catalogue__item.is-front {
+  transform: translateX(-50%);
   opacity: 1;
+  pointer-events: auto;
+}
+.hero-catalogue__item.is-prev {
+  transform: translateX(calc(-50% - 155px)) scale(0.84);
+  opacity: 0.42;
+  pointer-events: auto;
+}
+.hero-catalogue__item.is-next {
+  transform: translateX(calc(-50% + 155px)) scale(0.84);
+  opacity: 0.42;
   pointer-events: auto;
 }
 .hero-catalogue__item img {
@@ -1232,7 +1243,9 @@ footer { background: #030322; border-top-color: var(--line); }
   .hero-catalogue__heading,
   .hero-catalogue__footer { font-size: 0.5rem; letter-spacing: 0.14em; }
   .hero-catalogue__stage { height: min(125vw, 430px); margin-top: 0.6rem; overflow: hidden; }
-  .hero-catalogue__item { width: min(100%, 320px); }
+  .hero-catalogue__item { width: min(78vw, 290px); }
+  .hero-catalogue__item.is-prev { transform: translateX(calc(-50% - 150px)) scale(0.84); }
+  .hero-catalogue__item.is-next { transform: translateX(calc(-50% + 150px)) scale(0.84); }
   .hero-catalogue__item img { box-shadow: 0 20px 32px rgba(0,0,0,0.38); }
   .hero-catalogue__item figcaption { margin-top: 0.35rem; font-size: 0.48rem; letter-spacing: 0.1em; white-space: nowrap; }
   .hero-catalogue__item:not(.is-front) figcaption { opacity: 0; }
@@ -1243,7 +1256,9 @@ footer { background: #030322; border-top-color: var(--line); }
 
 @media (max-width: 380px) {
   .hero-catalogue__stage { height: min(125vw, 390px); }
-  .hero-catalogue__item { width: min(100%, 290px); }
+  .hero-catalogue__item { width: min(78vw, 270px); }
+  .hero-catalogue__item.is-prev { transform: translateX(calc(-50% - 136px)) scale(0.82); }
+  .hero-catalogue__item.is-next { transform: translateX(calc(-50% + 136px)) scale(0.82); }
 }
 
 /* ─── POLISH LAYER ─── */
