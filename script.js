@@ -209,8 +209,6 @@ document.querySelectorAll('.hero-catalogue').forEach(catalogue => {
     items.forEach((item, index) => {
       const rawPosition = (index - rotation + items.length) % items.length;
       const position = rawPosition > items.length / 2 ? rawPosition - items.length : rawPosition;
-      item.style.setProperty('--catalogue-position', position);
-      item.style.setProperty('--catalogue-offset', position);
       item.classList.toggle('is-front', position === 0);
       item.style.zIndex = String(100 - Math.abs(position));
     });
@@ -306,17 +304,6 @@ document.querySelectorAll('.hero-catalogue').forEach(catalogue => {
     playTap();
     rotateCatalogue();
     startRotation();
-  });
-  catalogue.addEventListener('pointermove', (event) => {
-    const bounds = catalogue.getBoundingClientRect();
-    const x = (event.clientX - bounds.left) / bounds.width - 0.5;
-    const y = (event.clientY - bounds.top) / bounds.height - 0.5;
-    catalogue.style.setProperty('--catalogue-tilt-x', `${y * -4}deg`);
-    catalogue.style.setProperty('--catalogue-tilt-y', `${x * 5}deg`);
-  });
-  catalogue.addEventListener('pointerleave', () => {
-    catalogue.style.setProperty('--catalogue-tilt-x', '0deg');
-    catalogue.style.setProperty('--catalogue-tilt-y', '0deg');
   });
   startRotation();
 });
