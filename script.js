@@ -192,6 +192,8 @@ document.querySelectorAll('.hero-catalogue').forEach(catalogue => {
   let rotation = 0;
   let timer;
   let audioContext = null;
+  let swipeStartX = null;
+  let swipeHandled = false;
 
   function getAudioContext() {
     const AudioCtor = window.AudioContext || window.webkitAudioContext;
@@ -209,6 +211,7 @@ document.querySelectorAll('.hero-catalogue').forEach(catalogue => {
       const position = rawPosition > items.length / 2 ? rawPosition - items.length : rawPosition;
       item.style.setProperty('--catalogue-position', position);
       item.style.setProperty('--catalogue-offset', position);
+      item.classList.toggle('is-front', position === 0);
       item.style.zIndex = String(100 - Math.abs(position));
     });
     if (counter) counter.textContent = `${String(rotation + 1).padStart(2, '0')} — ${String(items.length).padStart(2, '0')}`;
@@ -266,15 +269,39 @@ document.querySelectorAll('.hero-catalogue').forEach(catalogue => {
   rotateCatalogue(0);
   catalogue.addEventListener('mouseenter', () => clearInterval(timer));
   catalogue.addEventListener('mouseleave', startRotation);
+  catalogue.addEventListener('pointerdown', (event) => {
+    if (event.pointerType === 'mouse') return;
+    swipeStartX = event.clientX;
+    swipeHandled = false;
+  });
+  catalogue.addEventListener('pointerup', (event) => {
+    if (swipeStartX === null) return;
+    const distance = event.clientX - swipeStartX;
+    swipeStartX = null;
+    if (Math.abs(distance) < 28) return;
+    swipeHandled = true;
+    rotateCatalogue(distance < 0 ? 1 : -1);
+    playTap();
+    startRotation();
+  });
+  catalogue.addEventListener('pointercancel', () => { swipeStartX = null; });
   items.forEach((item, index) => {
     item.addEventListener('click', (event) => {
       event.stopPropagation();
+      if (swipeHandled) {
+        swipeHandled = false;
+        return;
+      }
       playTap();
       focusCatalogue(index);
       startRotation();
     });
   });
   catalogue.addEventListener('click', (event) => {
+    if (swipeHandled) {
+      swipeHandled = false;
+      return;
+    }
     if (event.target.closest('.hero-catalogue__item')) return;
     playTap();
     rotateCatalogue();
