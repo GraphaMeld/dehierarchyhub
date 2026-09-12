@@ -1231,8 +1231,8 @@ footer { background: #030322; border-top-color: var(--line); }
   .hero-catalogue { width: 100%; margin-top: 1.65rem; touch-action: pan-y; }
   .hero-catalogue__heading,
   .hero-catalogue__footer { font-size: 0.5rem; letter-spacing: 0.14em; }
-  .hero-catalogue__stage { height: 300px; margin-top: 0.6rem; overflow: hidden; }
-  .hero-catalogue__item { width: min(76vw, 220px); }
+  .hero-catalogue__stage { height: min(125vw, 430px); margin-top: 0.6rem; overflow: hidden; }
+  .hero-catalogue__item { width: min(100%, 320px); }
   .hero-catalogue__item img { box-shadow: 0 20px 32px rgba(0,0,0,0.38); }
   .hero-catalogue__item figcaption { margin-top: 0.35rem; font-size: 0.48rem; letter-spacing: 0.1em; white-space: nowrap; }
   .hero-catalogue__item:not(.is-front) figcaption { opacity: 0; }
@@ -1242,8 +1242,8 @@ footer { background: #030322; border-top-color: var(--line); }
 }
 
 @media (max-width: 380px) {
-  .hero-catalogue__stage { height: 270px; }
-  .hero-catalogue__item { width: min(78vw, 205px); }
+  .hero-catalogue__stage { height: min(125vw, 390px); }
+  .hero-catalogue__item { width: min(100%, 290px); }
 }
 
 /* ─── POLISH LAYER ─── */
